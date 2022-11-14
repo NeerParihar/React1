@@ -1,25 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import store from './Store';
+import { useState } from 'react';
+import { square,cube } from './Scalculator';
+const App=()=>{
+store.subscribe(()=>{console.log(store.getState())});
+let [st,updateSt]= useState(store.getState());
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return(<>
+  <h1> {st} App Component is running</h1>
+  <button onClick={()=>{
+    store.dispatch(square())
+    updateSt(store.getState())
+  }}>Sqaure</button>
+   <button onClick={()=>{
+    store.dispatch(cube())
+    updateSt(store.getState())
+  }}>Cube</button>
+ 
+  <input type='number' value={st}/>
+
+  </>)
 }
 
 export default App;
